@@ -11,6 +11,15 @@
 * **Eixo baseline** se ajusta ao dataset (todos ≥0, todos ≤0, ou misto).
 * Sem dependências externas de chart — 100% Compose.
 
+## 📽️ Demos (Android / iOS / Web / Desktop)
+
+<p align="center">
+  <img src="docs/demos/android.gif" alt="Android demo" width="48%"/>
+  <img src="docs/demos/ios.gif" alt="iOS demo" width="48%"/><br/>
+  <img src="docs/demos/web.gif" alt="Web (WASM) demo" width="48%"/>
+  <img src="docs/demos/desktop.gif" alt="Desktop (JVM) demo" width="48%"/>
+</p>
+
 ## ⚙️ Rodando
 
 ### Android
