@@ -1,23 +1,97 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
+# KMPCharts – Baseline Bar Chart (POC)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+**Kotlin Multiplatform + Compose Multiplatform** sample mostrando um **gráfico de barras com eixo zero dinâmico**, suportando **valores positivos e negativos**, sem libs externas.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+[https://github.com/juniorodilton/KMPCharts](https://github.com/juniorodilton/KMPCharts)
 
+## ✨ Destaques
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+* Compose Multiplataforma: Android • iOS • Desktop (JVM) • Web (WASM).
+* Gráfico **animado** com `animateDpAsState`.
+* **Eixo baseline** se ajusta ao dataset (todos ≥0, todos ≤0, ou misto).
+* Sem dependências externas de chart — 100% Compose.
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+## ⚙️ Rodando
 
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+### Android
+
+* Abrir no Android Studio > `composeApp` > Run `androidApp`.
+
+### iOS
+
+* Abrir `iosApp/iosApp.xcodeproj` ou via Gradle task `composeApp:iosDeploy*` (requer Xcode).
+
+### Desktop (JVM)
+
+* Gradle: `./gradlew :composeApp:run`
+
+### Web (WASM)
+
+* Gradle: `./gradlew :composeApp:wasmJsBrowserRun`
+* Abre o endereço indicado no terminal.
+
+## 📁 Estrutura (POC)
+
+### ASCII Tree
+
+```
+composeApp/
+└─ src/commonMain/kotlin/com/juniorodilton/kmpcharts/
+   ├─ App.kt
+   └─ chart/
+      ├─ Model.kt
+      ├─ Scales.kt
+      ├─ BaselineBarChart.kt
+      └─ SampleScreen.kt
+```
+
+### Mermaid Diagram
+
+```mermaid
+graph TD
+    A[composeApp] --> B[src/commonMain/kotlin/com/juniorodilton/kmpcharts/]
+    B --> C[App.kt]
+    B --> D[chart/]
+    D --> D1[Model.kt]
+    D --> D2[Scales.kt]
+    D --> D3[BaselineBarChart.kt]
+    D --> D4[SampleScreen.kt]
+```
+
+## 🧠 Contexto
+
+Na semana passada, um time interno pediu um gráfico de barras. Eu criei uma POC no mesmo dia; no fim, decidiram construir internamente. Resolvi **abrir a POC** para a comunidade como um exemplo simples e reutilizável.
+
+## 🚀 Próximos passos
+
+* Barras agrupadas e empilhadas.
+* Linha/grade e etiquetas de valor.
+* A11y/touch avançado e haptics.
+* Extrair para um módulo `:charts` separado.
+
+---
+
+## English
+
+This repo is a **Kotlin Multiplatform + Compose Multiplatform** sample implementing a **baseline bar chart** (supports **positive and negative values**) with **no external chart libs**.
+
+### Why
+
+I built this POC in a day for an internal request; later the team decided to do it in-house. Sharing the POC to help others and showcase a clean CMP approach.
+
+### Highlights
+
+* Android • iOS • Desktop • Web (WASM).
+* Smooth height animation via `animateDpAsState`.
+* Dynamic baseline (top/middle/bottom) based on data.
+
+### How to run
+
+* Android: run `androidApp` from Android Studio.
+* iOS: open `iosApp` project or use Gradle iOS tasks.
+* Desktop: `./gradlew :composeApp:run`
+* Web: `./gradlew :composeApp:wasmJsBrowserRun`
+
+### Next
+
+* Grouped/stacked bars; grid & value labels; extract `:charts` module.
