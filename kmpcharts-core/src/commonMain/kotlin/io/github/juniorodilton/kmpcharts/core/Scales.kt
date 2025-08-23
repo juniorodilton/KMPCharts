@@ -1,4 +1,7 @@
-package com.juniorodilton.kmpcharts.chart
+package io.github.juniorodilton.kmpcharts.core
+
+import kotlin.math.max
+import kotlin.math.min
 
 data class Scale(
     val posMax: Float,
@@ -8,8 +11,8 @@ data class Scale(
 
 fun computeScale(values: List<Float>): Scale {
     if (values.isEmpty()) return Scale(0f, 0f, 1f)
-    val posMax = values.maxOf { kotlin.math.max(it, 0f) }
-    val negMin = values.minOf { kotlin.math.min(it, 0f) } // <= 0
+    val posMax = values.maxOf { max(it, 0f) }
+    val negMin = values.minOf { min(it, 0f) } // <= 0
     val total = (posMax - negMin).let { if (it == 0f) 1f else it }
     val baseline = posMax / total
     return Scale(posMax, negMin, baseline)

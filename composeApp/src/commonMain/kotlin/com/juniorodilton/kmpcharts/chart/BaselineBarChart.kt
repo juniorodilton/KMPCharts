@@ -17,6 +17,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import io.github.juniorodilton.kmpcharts.core.Series
+import io.github.juniorodilton.kmpcharts.core.computeScale
 import kotlin.math.abs
 
 object BarChartDefaults {
