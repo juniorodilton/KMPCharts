@@ -60,6 +60,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.kmpchartsCore)
+            implementation(projects.kmpchartsCompose)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

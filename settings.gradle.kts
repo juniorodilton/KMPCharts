@@ -34,3 +34,4 @@ plugins {
 
 include(":composeApp")
 include(":kmpcharts-core")
+include(":kmpcharts-compose")

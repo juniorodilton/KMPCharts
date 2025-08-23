@@ -1,4 +1,4 @@
-package com.juniorodilton.kmpcharts.chart
+package io.github.juniorodilton.kmpcharts.compose
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -12,11 +12,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import io.github.juniorodilton.kmpcharts.core.Scale
 import io.github.juniorodilton.kmpcharts.core.Series
 import io.github.juniorodilton.kmpcharts.core.computeScale
 import kotlin.math.abs
@@ -35,8 +37,8 @@ fun BaselineBarChart(
     plotHeight: Dp = BarChartDefaults.PlotHeight,
     barWidthFraction: Float = BarChartDefaults.BarWidthFraction,
     showLabels: Boolean = true,
-    positiveColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.primary,
-    negativeColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.error,
+    positiveColor: Color = MaterialTheme.colorScheme.primary,
+    negativeColor: Color = MaterialTheme.colorScheme.error,
 ) {
     val values = remember(series) { series.points.map { it.value } }
     val scale = remember(values) { computeScale(values) }
@@ -59,8 +61,16 @@ fun BaselineBarChart(
                             (plotHeight - baselineDp) * (abs(v) / abs(scale.negMin))
                         else 0.dp
 
-                    val posH by animateDpAsState(posTarget, label = "posH", animationSpec = BarChartDefaults.EnterAnimation)
-                    val negH by animateDpAsState(negTarget, label = "negH", animationSpec = BarChartDefaults.EnterAnimation)
+                    val posH by animateDpAsState(
+                        posTarget,
+                        label = "posH",
+                        animationSpec = BarChartDefaults.EnterAnimation
+                    )
+                    val negH by animateDpAsState(
+                        negTarget,
+                        label = "negH",
+                        animationSpec = BarChartDefaults.EnterAnimation
+                    )
 
                     Column(
                         Modifier

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.CardDefaults
+import io.github.juniorodilton.kmpcharts.compose.BaselineBarChart
 import io.github.juniorodilton.kmpcharts.core.DataPoint
 import io.github.juniorodilton.kmpcharts.core.Series
 
