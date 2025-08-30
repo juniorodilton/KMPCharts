@@ -35,3 +35,8 @@ plugins {
 include(":composeApp")
 include(":kmpcharts-core")
 include(":kmpcharts-compose")
+include(":samples:sample-common-ui")
+include(":samples:sample-android")
+include(":samples:sample-ios")
+include(":samples:sample-desktop")
+include(":samples:sample-web")

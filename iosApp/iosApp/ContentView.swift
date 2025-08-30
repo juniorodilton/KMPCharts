@@ -1,10 +1,10 @@
 import UIKit
 import SwiftUI
-import ComposeApp
+import KMPChartsSample
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController()
+        MainKt.MainViewController() as! UIViewController
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
