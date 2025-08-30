@@ -56,4 +56,6 @@ dependencies {
     implementation(compose.preview)
     implementation(libs.androidx.lifecycle.viewmodelCompose)
     implementation(libs.androidx.lifecycle.runtimeCompose)
+
+    debugImplementation(compose.uiTooling)
 }
