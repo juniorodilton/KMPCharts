@@ -34,6 +34,7 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.animation)
                 implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
             }
         }
         val commonTest by getting {
