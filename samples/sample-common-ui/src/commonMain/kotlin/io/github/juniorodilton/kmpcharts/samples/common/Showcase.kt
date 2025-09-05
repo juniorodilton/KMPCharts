@@ -13,47 +13,88 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import io.github.juniorodilton.kmpcharts.compose.BaselineBarChart
 import io.github.juniorodilton.kmpcharts.core.DataPoint
 import io.github.juniorodilton.kmpcharts.core.Series
 
+private val SeriesA = Series(
+    name = "POC – Baseline Bar Chart",
+    points = listOf(
+        DataPoint("Jan 25", 30f),
+        DataPoint("Fev 25", 40f),
+        DataPoint("Mar 25", -12f),
+        DataPoint("Abr 25", 55f),
+        DataPoint("Mai 25", -22f),
+        DataPoint("Jun 25", 15f),
+    )
+)
+
+private val SeriesB = Series(
+    name = "POC – Baseline Bar Chart",
+    points = listOf(
+        DataPoint("Jul 25", 10f),
+        DataPoint("Ago 25", 0f),
+        DataPoint("Set 25", -30f),
+        DataPoint("Out 25", -15f),
+        DataPoint("Nov 25", 42f),
+        DataPoint("Dez 25", 70f),
+    )
+)
+
 @Composable
 fun ShowcaseApp() {
     MaterialTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            ShowcaseScreen()
-        }
+        var useAlt by rememberSaveable { mutableStateOf(false) }
+        ShowcaseScreen(
+            useAlt = useAlt,
+            onToggleDataset = { useAlt = !useAlt }
+        )
     }
 }
 
 @Composable
-fun ShowcaseScreen() {
-    var toggle by remember { mutableStateOf(false) }
+fun ShowcaseScreen(
+    useAlt: Boolean,
+    onToggleDataset: () -> Unit,
+) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        "KMPCharts - Showcase",
+                        text = "KMPCharts - Showcase",
                         style = MaterialTheme.typography.titleLarge
                     )
                 },
                 actions = {
-                    IconButton(onClick = { toggle = !toggle }) {
-                        Icon(Icons.Outlined.Refresh, contentDescription = "Trocar dataset")
+                    IconButton(
+                        onClick = onToggleDataset,
+                        modifier = Modifier.semantics { contentDescription = "Trocar dataset" }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Refresh,
+                            contentDescription = null
+                        )
                     }
-                }
+                },
+                scrollBehavior = scrollBehavior,
             )
         }
     ) { padding ->
@@ -65,34 +106,14 @@ fun ShowcaseScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            DemoGroupedBar(toggle)
+            val series = if (useAlt) SeriesB else SeriesA
+            BaselineBarChart(
+                series = series,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .testTag("baselineBarChart")
+                    .semantics { contentDescription = "Gráfico de barras com baseline" }
+            )
         }
     }
-}
-
-@Composable
-private fun DemoGroupedBar(toggle: Boolean) {
-    val sample = remember(toggle) {
-        val data1 = listOf(
-            DataPoint("Jan 25", 30f),
-            DataPoint("Fev 25", 40f),
-            DataPoint("Mar 25", -12f),
-            DataPoint("Abr 25", 55f),
-            DataPoint("Mai 25", -22f),
-            DataPoint("Jun 25", 15f),
-        )
-        val data2 = listOf(
-            DataPoint("Jul 25", 10f),
-            DataPoint("Ago 25", 0f),
-            DataPoint("Set 25", -30f),
-            DataPoint("Out 25", -15f),
-            DataPoint("Nov 25", 42f),
-            DataPoint("Dez 25", 70f),
-        )
-        Series(
-            name = "POC – Baseline Bar Chart",
-            points = if (toggle) data2 else data1
-        )
-    }
-    BaselineBarChart(series = sample)
 }

@@ -14,11 +14,3 @@ class MainActivity : ComponentActivity() {
         setContent { ShowcaseApp() }
     }
 }
-
-@Preview
-@Composable
-private fun Preview() {
-    MaterialTheme {
-        ShowcaseApp()
-    }
-}
